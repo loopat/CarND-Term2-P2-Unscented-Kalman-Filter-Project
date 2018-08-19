@@ -16,19 +16,20 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
     * Calculate the RMSE here.
   */
 
-    VectorXd rmse(5);
+    VectorXd rmse(4);
     rmse <<0,0,0,0;
     
     if(estimations.size() != ground_truth.size() || estimations.size() == 0){
         std::cout << "Invalid estimations or ground_truth data" << std::endl;
+        return rmse;
     }
     
-    for(unsigned i = 0; i < estimations.size(); ++i){
+    for(unsigned i = 0; i < estimations.size(); i++){
         VectorXd residual = estimations[i] - ground_truth[i];
         residual = residual.array() * residual.array();
         rmse += residual;
     }
-    
+
     //calculate the mean
     rmse = rmse/estimations.size();
     
